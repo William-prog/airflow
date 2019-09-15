@@ -852,7 +852,7 @@ class SchedulerJob(BaseJob):
                 DR,
                 and_(DR.dag_id == TI.dag_id, DR.execution_date == TI.execution_date)
             )
-            .filter(or_(DR.run_id == None,  # noqa: E711 pylint: disable=singleton-comparison
+            .filter(or_(DR.run_id is None,  # noqa: E711 pylint: disable=singleton-comparison
                     not_(DR.run_id.like(BackfillJob.ID_PREFIX + '%'))))
             .outerjoin(DM, DM.dag_id == TI.dag_id)
             .filter(or_(DM.dag_id == None,  # noqa: E711 pylint: disable=singleton-comparison
